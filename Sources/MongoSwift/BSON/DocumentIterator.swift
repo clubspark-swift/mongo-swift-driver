@@ -39,7 +39,7 @@ public class DocumentIterator: IteratorProtocol {
         self._storage = doc._storage
 
         let initialized = self.withMutableBSONIterPointer { iterPtr in
-            bson_iter_init_find(iterPtr, doc._bson, key.cString(using: .utf8))
+            bson_iter_init_find(iterPtr, doc._bson, key)
         }
 
         guard initialized else {
@@ -58,7 +58,7 @@ public class DocumentIterator: IteratorProtocol {
     /// Moves the iterator to the specified key. Returns false if the key does not exist. Returns true otherwise.
     internal func move(to key: String) -> Bool {
         self.withMutableBSONIterPointer { iterPtr in
-            bson_iter_find(iterPtr, key.cString(using: .utf8))
+            bson_iter_find(iterPtr, key)
         }
     }
 
